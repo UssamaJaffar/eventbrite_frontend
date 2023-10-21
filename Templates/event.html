@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load static%}
+{% block title %} login {% endblock %}
+
+{% block css %}
+<link href="{% static 'css/auth_page.css' %}" rel="stylesheet">
+<style>
+    tr.clickable-row{
+        cursor: pointer;
+    }
+    .table {
+        border-collapse: separate;
+        border-spacing:0 3px;
+    }
+</style>
+{% endblock %}
+
+
+{% block navbar %}
+<nav class="navbar navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/event/">
+            Event Management
+        </a>
+    </div>
+</nav>
+{% endblock %}
+
+
+{% block content %}
+<div class="bg-light">
+    <div class="p-5" style="float: right;">
+        <a href="/event/create-events/" class="btn btn-success" role="button">Create Event</a>
+        <a href="/event/create-venue/" class="btn btn-secondary" role="button">Create Venue</a>
+    </div>
+
+    <table class="table table-dark table-borderless">
+        <thead>
+            <th>name</th>
+            <th>description</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>Detail</th>
+
+        </thead>
+        <tbody>
+            <tr class="table-active clickable-row" data-href='/test/'>
+                <td>3</td>
+                <td>Larry the Bird</td>
+                <td>@twitter</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr class="table-active clickable-row" data-href='/link-for-first-row/'>
+                <td>3</td>
+                <td>Larry the Bird</td>
+                <td>@twitter</td>
+                <td></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+
+
+{% block scripts %}
+<script>
+   $(".clickable-row").click(function () {
+        window.location = $(this)[0].dataset['href'];
+    });
+</script>
+{% endblock %}

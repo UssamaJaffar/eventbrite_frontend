@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static%}
+{% block title %} login {% endblock %}
+
+{% block css %}
+{% endblock %}
+
+
+{% block navbar %}
+<nav class="navbar navbar-light bg-light mb-5">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/event/">
+            Event Management
+        </a>
+    </div>
+</nav>
+{% endblock %}
+
+
+{% block content %}
+<div class="container h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+        <div class="card mb-5" style="border-radius: 15px;">
+          <div class="card-body p-5">
+            <h2 class="text-uppercase text-center mb-5">Create Veune</h2>
+
+            <form action="/event/create-venue/" method="post">
+
+              {% csrf_token %}
+
+
+              <div class="form-outline mb-4">
+                  <label class="form-label">{{form.name.label_tag }}</label>
+                  {{form.name}}
+                  <p class="fs-5 text-danger">{{form.name.errors.as_text}}</p>
+              </div>
+              
+              <div class="form-outline mb-4">
+                <label class="form-label">{{form.capacity.label_tag }}</label>
+                {{form.capacity}}
+                <p class="fs-5 text-danger">{{form.capacity.errors.as_text}}</p>
+              </div>
+
+              <div class="form-outline mb-4">
+                <label class="form-label">{{form.latitude.label_tag }}</label>
+                {{form.latitude}}
+                <p class="fs-5 text-danger">{{form.latitude.errors.as_text}}</p>
+              </div>
+              
+              <div class="form-outline mb-4">
+                  <label class="form-label">{{form.longitude.label_tag }}</label>
+                  {{form.longitude}}
+                  <p class="fs-5 text-danger">{{form.longitude.errors.as_text}}</p>
+              </div>
+
+              <div class="d-flex justify-content-center">
+                <button type="submit"
+                  class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Create</button>
+              </div>
+
+              <p class="text-center text-muted mt-4 mb-0">Want to create an Event <a href="/event/create-events/"
+                  class="fw-bold text-body"><u>Create Event here</u></a></p>
+
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+
+{% block scripts %}
+
+{% endblock %}
