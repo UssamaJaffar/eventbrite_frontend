@@ -8,7 +8,7 @@ def authentication_not_required(view_func, redirect_url="/event/"):
         the url whose view name was passed to the redirect_url parameter
     """
     def wrapper(request, *args, **kwargs):
-        if not request.session['access_token']:
+        if not request.session.get('access_token'):
             return view_func(request,*args, **kwargs)
         return redirect(redirect_url)
 
@@ -22,7 +22,7 @@ def authentication_required(view_func, redirect_url="/user/login/"):
         the url whose view name was passed to the redirect_url parameter
     """
     def wrapper(request, *args, **kwargs):
-        if request.session['access_token']:
+        if request.session.get('access_token'):
             return view_func(request,*args, **kwargs)
         return redirect(redirect_url)
 

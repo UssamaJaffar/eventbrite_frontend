@@ -7,17 +7,13 @@
 
 
 {% block navbar %}
-<nav class="navbar navbar-light bg-light mb-5">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="/event/">
-            Event Management
-        </a>
-    </div>
-</nav>
+    {% include 'navbar.html' %}
 {% endblock %}
 
 
 {% block content %}
+{% include 'loader.html' %}
+
 <div class="container h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col-12 col-md-9 col-lg-7 col-xl-6">
@@ -31,9 +27,9 @@
 
 
               <div class="form-outline mb-4">
-                  <label class="form-label">{{form.name.label_tag }}</label>
-                  {{form.name}}
-                  <p class="fs-5 text-danger">{{form.name.errors.as_text}}</p>
+                  <label class="form-label">{{form.address_place.label_tag }}</label>
+                  {{form.address_place}}
+                  <p class="fs-5 text-danger">{{form.address_place.errors.as_text}}</p>
               </div>
               
               <div class="form-outline mb-4">
@@ -53,6 +49,13 @@
                   {{form.longitude}}
                   <p class="fs-5 text-danger">{{form.longitude.errors.as_text}}</p>
               </div>
+              {% if messages %}
+              <div class="messages">
+                  {% for message in messages %}
+                  <p class="text-danger">{{ message }}</p>
+                  {% endfor %}
+              </div>
+              {% endif %}
 
               <div class="d-flex justify-content-center">
                 <button type="submit"

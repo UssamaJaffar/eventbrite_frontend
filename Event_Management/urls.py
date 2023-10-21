@@ -20,9 +20,12 @@ from django.urls import path , include
 from user import urls as user_views
 from events import urls as event_views
 
+from user.views import login
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('user/', include(user_views)),
-    path('event/', include(event_views))
+    path('event/', include(event_views)),
+    path('', login)
 
 ]

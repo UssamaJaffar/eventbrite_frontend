@@ -7,17 +7,13 @@
 
 
 {% block navbar %}
-<nav class="navbar navbar-light bg-light mb-5">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="/event/">
-            Event Management
-        </a>
-    </div>
-</nav>
+    {% include 'navbar.html' %}
 {% endblock %}
 
 
 {% block content %}
+{% include 'loader.html' %}
+
 <div class="container h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col-12 col-md-9 col-lg-7 col-xl-6">
@@ -37,6 +33,13 @@
               </div>
 
               <div class="form-outline mb-4">
+                <label class="form-label">{{form.description.label_tag }}</label>
+                {{form.description}}
+                <p class="fs-5 text-danger">{{form.description.errors.as_text}}</p>
+              </div>
+
+
+              <div class="form-outline mb-4">
                   <label class="form-label">{{form.start_date.label_tag }}</label>
                   {{form.start_date}}
                   <p class="fs-5 text-danger">{{form.start_date.errors.as_text}}</p>
@@ -52,6 +55,25 @@
                     <label class="form-label">{{form.capacity.label_tag }}</label>
                     {{form.capacity}}
                     <p class="fs-5 text-danger">{{form.capacity.errors.as_text}}</p>
+                </div>
+
+                <div class="form-outline mb-4">
+                    <label class="form-label">{{form.Ticket_Name.label_tag }}</label>
+                    {{form.Ticket_Name}}
+                    <p class="fs-5 text-danger">{{form.Ticket_Name.errors.as_text}}</p>
+                </div>
+
+
+                <div class="form-outline mb-4">
+                    <label class="form-label">{{form.cost.label_tag }}</label>
+                    {{form.cost}}
+                    <p class="fs-5 text-danger">{{form.cost.errors.as_text}}</p>
+                </div>
+
+                <div class="form-outline mb-4">
+                    <label class="form-label">{{form.currency.label_tag }}</label>
+                    {{form.currency}}
+                    <p class="fs-5 text-danger">{{form.currency.errors.as_text}}</p>
                 </div>
 
                 <div class="form-outline mb-4">

@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static%}
+{% block title %} login {% endblock %}
+
+{% block css %}
+<link href="{% static 'css/auth_page.css' %}" rel="stylesheet">
+<style>
+  tr.clickable-row {
+    cursor: pointer;
+  }
+
+  .table {
+    border-collapse: separate;
+    border-spacing: 0 3px;
+  }
+</style>
+{% endblock %}
+
+
+{% block navbar %}
+    {% include 'navbar.html' %}
+{% endblock %}
+
+
+{% block content %}
+{% include 'loader.html' %}
+
+<div class="bg-light container">
+  <div class="row">
+    <div class="col-6">
+      <iframe width="500" height="500" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
+        src="https://maps.google.com/maps?q=+{{response.venue.latitude}}+,+{{response.venue.longitude}}+&hl=en&z=14&amp;output=embed">
+      </iframe>
+    </div>
+    <div class="col-6">
+      <h3>Name:</h3>
+      <h5 style="text-align: right;">{{response.event.name.text}}</h5>
+      <h3>Timing:</h3>
+      <h5 style="text-align: right;">From: {{response.event.start.utc}}</h5> 
+      <h5 style="text-align: right;">To: <span>{{response.event.end.utc}}</span></h5>
+      <h3>Ticket price:</h3>
+      <h5 style="text-align: right;">{{response.ticket.actual_fee.display}}</h5>
+      <h4 style="text-align: right;"><a href={{response.event.url}}>For ticket Details</a></h4>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+
+{% block scripts %}
+<script>
+  $(".clickable-row").click(function () {
+    window.location = $(this)[0].dataset['href'];
+  });
+</script>
+{% endblock %}

@@ -5,68 +5,82 @@
 {% block css %}
 <link href="{% static 'css/auth_page.css' %}" rel="stylesheet">
 <style>
-    tr.clickable-row{
+    tr.clickable-row {
         cursor: pointer;
     }
+
     .table {
         border-collapse: separate;
-        border-spacing:0 3px;
+        border-spacing: 0 3px;
     }
 </style>
+
 {% endblock %}
 
-
 {% block navbar %}
-<nav class="navbar navbar-light bg-light">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="/event/">
-            Event Management
-        </a>
-    </div>
-</nav>
+    {% include 'navbar.html' %}
 {% endblock %}
 
 
 {% block content %}
+{% include 'loader.html' %}
 <div class="bg-light">
     <div class="p-5" style="float: right;">
         <a href="/event/create-events/" class="btn btn-success" role="button">Create Event</a>
         <a href="/event/create-venue/" class="btn btn-secondary" role="button">Create Venue</a>
     </div>
 
-    <table class="table table-dark table-borderless">
+    {% if response %}
+    <table class="table table-dark table-borderless p-4">
         <thead>
+            <th>id</th>
             <th>name</th>
             <th>description</th>
             <th>Start Time</th>
             <th>End Time</th>
-            <th>Detail</th>
 
         </thead>
         <tbody>
-            <tr class="table-active clickable-row" data-href='/test/'>
-                <td>3</td>
-                <td>Larry the Bird</td>
-                <td>@twitter</td>
-                <td></td>
-                <td></td>
+            {%for event in response %}
+            <tr class="table-active clickable-row" data-href='/event/event_detail/{{event.id}}'>
+                <td>{{event.id}}</td>
+                <td>{{event.name}}</td>
+                <td>{{event.description}}</td>
+                <td>{{event.start_time}}</td>
+                <td>{{event.end_time}}</td>
             </tr>
-            <tr class="table-active clickable-row" data-href='/link-for-first-row/'>
-                <td>3</td>
-                <td>Larry the Bird</td>
-                <td>@twitter</td>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {% else %}
+    <table class="table table-dark table-borderless p-4">
+        <thead>
+            <th>id</th>
+            <th>name</th>
+            <th>description</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+        </thead>
+        <tbody>
+            <tr class="table-active clickable-row" data-href='#'>
+                <td></td>
+                <td></td>
+                <td>No Record Found</td>
                 <td></td>
                 <td></td>
             </tr>
         </tbody>
     </table>
+    {% endif %}
+
 </div>
 {% endblock %}
 
 
 {% block scripts %}
 <script>
-   $(".clickable-row").click(function () {
+    $(".clickable-row").click(function () {
         window.location = $(this)[0].dataset['href'];
     });
 </script>

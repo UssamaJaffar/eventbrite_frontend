@@ -7,7 +7,7 @@ from Event_Management.settings import API_URL
 
 from django.contrib import messages
 
-from utils.Decorators.decorators import authentication_not_required
+from utils.Decorators.decorators import authentication_not_required , authentication_required
 
 import requests
 import json
@@ -30,8 +30,8 @@ def login(request):
             if res.status_code == 200:
     
                 tokens = res.json().get('tokens')
-                request.session['access_token'] = tokens['refresh']
-                request.session['refresh_token'] = tokens['access']
+                request.session['access_token'] = tokens['access']
+                request.session['refresh_token'] = tokens['refresh']
     
                 return redirect('/event/')
 
@@ -61,11 +61,24 @@ def Register(request):
             if res.status_code == 200:
                 return redirect('/user/login/')
 
-            messages.error(request , res.json().get('Message'))
-            return render(request , 'login.html',{"form":form})
+            if res.status_code == 400:
+                for err in res.json().values():
+                    messages.error(request , err[0])
+            else:
+                messages.error(request , "Something went wrong try again later")
+
+            return render(request , 'Sign_Up.html',{"form":form})
 
     
         return render(request , 'Sign_Up.html',{"form":form})
 
     form = SignUpForm
     return render(request , 'Sign_Up.html',{"form":form})
+
+@authentication_required
+def logout(request):
+    res = requests.post(API_URL+'/user/logout/', data=json.dumps({'refresh':request.session['refresh_token']}), headers={"Content-Type":"application/json"})
+
+    request.session['access_token'] = None
+    request.session['refresh_token'] = None
+    return redirect('/user/login/')

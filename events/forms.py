@@ -4,6 +4,13 @@ import datetime
 
 class EventForm(forms.Form):
 
+    CURRENCY_CHOICES =( 
+        ("USD", "USD"), 
+        ("EUR", "EUR"), 
+        ("JPY", "JPY"), 
+        ("GBP", "GBP")
+    )
+
     def __init__(self, foo_choices, *args, **kwargs):
         self.base_fields['venue_id'].choices = foo_choices
         super(EventForm, self).__init__(*args, **kwargs)
@@ -14,12 +21,21 @@ class EventForm(forms.Form):
     description = forms.CharField(max_length = 200)
     description.widget.attrs.update({'class': 'form-control form-control-lg'})  
 
-    start_date = forms.DateTimeField(widget=forms.TextInput(attrs={'class': 'form-control ', 'type':'date'}))
+    start_date = forms.DateTimeField(widget=forms.TextInput(attrs={'class': 'form-control ', 'type':'datetime-local'}))
 
-    end_date = forms.DateTimeField(widget=forms.TextInput(attrs={'class': 'form-control ', 'type':'date'}))
+    end_date = forms.DateTimeField(widget=forms.TextInput(attrs={'class': 'form-control ', 'type':'datetime-local'}))
 
     capacity = forms.IntegerField()
-    capacity.widget.attrs.update({'class': 'form-control form-control-lg'})  
+    capacity.widget.attrs.update({'class': 'form-control form-control-lg'})
+
+    cost = forms.IntegerField()
+    cost.widget.attrs.update({'class': 'form-control form-control-lg'})  
+
+    currency = forms.ChoiceField(choices=CURRENCY_CHOICES,required=True)
+    currency.widget.attrs.update({'class': 'form-control form-control-lg'})  
+
+    Ticket_Name = forms.CharField(max_length = 200)
+    Ticket_Name.widget.attrs.update({'class': 'form-control form-control-lg'})
 
     venue_id = forms.ChoiceField(choices=(),required=True)
     venue_id.widget.attrs.update({'class': 'form-control form-control-lg'})
@@ -46,8 +62,8 @@ class EventForm(forms.Form):
 
 class VenueForm(forms.Form):
 
-    name = forms.CharField(max_length = 200)
-    name.widget.attrs.update({'class': 'form-control form-control-lg'})  
+    address_place = forms.CharField(max_length = 200)
+    address_place.widget.attrs.update({'class': 'form-control form-control-lg'})  
     
     capacity = forms.IntegerField()
     capacity.widget.attrs.update({'class': 'form-control form-control-lg'})  

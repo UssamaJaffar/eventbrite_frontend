@@ -62,7 +62,13 @@
                     {{form.Password}}
                     <p class="fs-5 text-danger">{{form.Password.errors.as_text}}</p>
                 </div>
-
+                {% if messages %}
+                <div class="messages">
+                    {% for message in messages %}
+                    <p class="text-danger">{{ message }}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
 
                 <div class="d-flex justify-content-center">
                   <button type="submit"
